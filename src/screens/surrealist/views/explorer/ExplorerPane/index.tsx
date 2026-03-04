@@ -331,6 +331,11 @@ export function ExplorerPane({ activeTable, onCreateRecord }: ExplorerPaneProps)
 		pagination.setCurrentPage(1);
 	}, [pagination.setCurrentPage, activeTable]);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: Clear selection when switching tables
+	useLayoutEffect(() => {
+		setSelected(new Set<string>());
+	}, [setSelected, activeTable]);
+
 	useEventSubscription(RecordsChangedEvent, refetch);
 
 	return (
